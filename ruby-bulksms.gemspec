@@ -1,20 +1,17 @@
 Gem::Specification.new do |s|
-  s.name     = "ruby-bulksms"
-  s.version  = "0.4"
-  s.date     = "2010-03-31"
-  s.summary  = "Sending SMS using bulksms services"
-  s.email    = "eng.basayel.said@gmail.com"
-  s.homepage = "http://github.com/basayel/ruby-bulksms"
+  s.name        = "ruby-bulksms"
+  s.version     = "0.4"
+  s.platform    = Gem::Platform::RUBY
+  s.authors     = "Basayel Said"
+  s.email       = "eng.basayel.said@gmail.com"
+  s.homepage    = "http://github.com/basayel/ruby-bulksms"
+  s.summary     = "Sending SMS using bulksms services"
   s.description = "Integrating SMS services into RubyOnRails applications using BulkSMS gateway"
-  s.has_rdoc = true
-  s.authors  = ["Basayel Said"]
-  s.files    = [ 
-                "ruby-bulksms.gemspec", 
-                "README",
-                "lib/ruby-bulksms.rb",
-                "lib/net/sms/bulksms/account.rb",
-                "lib/net/sms/bulksms/message.rb",
-                "lib/net/sms/bulksms/response.rb",
-                "lib/net/sms/bulksms.rb"
-  ]
+  s.has_rdoc    = true
+
+  s.files         = `git ls-files`.split("\n")
+  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
+  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
+  s.require_paths = ["lib"]
 end
+
