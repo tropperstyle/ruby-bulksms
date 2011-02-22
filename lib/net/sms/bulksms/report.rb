@@ -13,7 +13,7 @@ module Net
 
         # Path to the account service gateway
         SERVICE_PATH = '/eapi/status_reports/get_report/2/2.0'
-        
+
         def initialize(username, password, batch_id, country = 'uk', options = {})
           @username, @password = username, password
           @batch_id = batch_id
