@@ -24,7 +24,7 @@ module Net
     module BulkSMS
       class Service
         # The port the message service rus on
-        MESSAGE_SERVICE_PORT = 80 #5567
+        DEFAULT_PORT = 5567
 
         # Path to the message service gateway
         MESSAGE_SERVICE_PATH = '/eapi/submission/send_sms/2/2.0'
@@ -33,13 +33,13 @@ module Net
         attr_accessor :account
 
         def initialize(username, password, gateway)
-          self.account = Account.new(username, password, gateway)
+          self.account = Account.new(username, password, gateway, port = DEFAULT_PORT)
         end
         
         # Sends the given Message object to the gateway for delivery
         def send_message(msg)
           payload = [account.to_http_query, msg.to_http_query].join('&')
-          Net::HTTP.start(account.gateway, MESSAGE_SERVICE_PORT) do |http|
+          Net::HTTP.start(account.gateway, account.port) do |http|
             resp = http.post(MESSAGE_SERVICE_PATH, payload)
             Response.parse(resp.body)
           end
@@ -48,7 +48,7 @@ module Net
         #Openning single connection & sending an array of message objects
         def send_multiple(messages)
           responses=[]
-          Net::HTTP.start(account.gateway, MESSAGE_SERVICE_PORT) do |http|
+          Net::HTTP.start(account.gateway, account.port) do |http|
             messages.each do |msg|
               payload = [account.to_http_query, msg.to_http_query].join('&')
               resp = http.post(MESSAGE_SERVICE_PATH, payload)
